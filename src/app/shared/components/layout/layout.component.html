@@ -1,0 +1,28 @@
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.2)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+  [fullScreen]="true"
+  id="spinner-loading"
+  ><p style="color: white">Cargando...</p></ngx-spinner
+>
+<div class="min-h-screen bg-gray-50 dark:bg-gray-800">
+  <!-- Sidebar Start -->
+  <app-sidebar />
+  <!-- Sidebar End -->
+
+  <!--  Main Content Start -->
+  <div class="p-0 pt-0 sm:ml-64">
+    <!-- Header Start -->
+    <app-header />
+    <!-- Header End -->
+    <div class="px-4 pb-4 pt-2 bg-gray-50 dark:bg-gray-800">
+      <router-outlet />
+    </div>
+    <!-- Footer Start -->
+    <app-footer />
+    <!-- Footer End -->
+  </div>
+  <!-- Main Content End -->
+</div>

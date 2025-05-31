@@ -1,0 +1,22 @@
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+  [fullScreen]="true"
+  ><p style="color: white">Cargando...</p></ngx-spinner
+>
+
+<ng-template *ngIf="!finishedAuthCheck(); else authElseTemplate">
+  <ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+    [fullScreen]="true"
+    ><p style="color: white">Cargando...</p></ngx-spinner
+  >
+</ng-template>
+<ng-template #authElseTemplate>
+  <router-outlet></router-outlet>
+</ng-template>

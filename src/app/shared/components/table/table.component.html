@@ -1,0 +1,115 @@
+<!-- Tabla -->
+<div class="overflow-x-auto">
+  <table class="min-w-full table-auto border-collapse">
+    <thead>
+      <tr class="border-b-2 border-gray-400">
+        <th
+          *ngFor="let column of tableColumns"
+          class="px-4 py-2 text-left font-semibold text-gray-700"
+        >
+          {{ column.label }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of pagedData" class="border-b-2">
+        <ng-container *ngFor="let column of tableColumns">
+          <td *ngIf="column.def !== 'actionsBtn'" class="px-4 py-2">
+            {{ row | columnValue : column }}
+          </td>
+          <td *ngIf="column.def === 'actionsBtn'" class="px-4 py-2 text-center">
+            <!-- Botón de actualizar -->
+            <button
+              *ngIf="isBtnUpdate"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition"
+              title="Editar"
+              (click)="
+                handleButtonClick(
+                  'update',
+                  row.id ??
+                    row.productId ??
+                    row.productionOrderId ??
+                    row.productionLineId
+                )
+              "
+            >
+              <i class="fa-solid fa-edit"></i>
+            </button>
+
+            <!-- Botón de eliminar -->
+            <button
+              *ngIf="isBtnDelete"
+              class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 ml-2 rounded focus:outline-none focus:shadow-outline transition"
+              title="Eliminar"
+              (click)="
+                handleButtonClick(
+                  'delete',
+                  row.id ??
+                    row.productId ??
+                    row.productionOrderId ??
+                    row.productionLineId
+                )
+              "
+            >
+              <i class="fa-solid fa-trash"></i>
+            </button>
+
+            <!-- Botón adicional -->
+            <button
+              *ngIf="isThirdBtn"
+              class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-2 ml-2 rounded focus:outline-none focus:shadow-outline transition"
+              title="{{ labelThirdBtn }}"
+              (click)="
+                handleButtonClick(
+                  'thirdBtn',
+                  row.id ??
+                    row.productId ??
+                    row.productionOrderId ??
+                    row.productionLineId
+                )
+              "
+            >
+              <i class="fa-solid fa-info"></i>
+            </button>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PAGINACIÓN CON TAILWIND -->
+<nav class="flex justify-center mt-4">
+  <ul class="inline-flex items-center space-x-2">
+    <li>
+      <button
+        class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200 ease-in-out"
+        [class.opacity-50]="currentPage === 0"
+        [disabled]="currentPage === 0"
+        (click)="onPageChange(currentPage - 1)"
+      >
+        Anterior
+      </button>
+    </li>
+    <li *ngFor="let page of getPages(); let i = index">
+      <button
+        class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition duration-200 ease-in-out"
+        [class.bg-blue-500]="i === currentPage"
+        [class.text-white]="i === currentPage"
+        (click)="onPageChange(i)"
+      >
+        {{ i + 1 }}
+      </button>
+    </li>
+    <li>
+      <button
+        class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200 ease-in-out"
+        [class.opacity-50]="currentPage >= getTotalPages() - 1"
+        [disabled]="currentPage >= getTotalPages() - 1"
+        (click)="onPageChange(currentPage + 1)"
+      >
+        Siguiente
+      </button>
+    </li>
+  </ul>
+</nav>

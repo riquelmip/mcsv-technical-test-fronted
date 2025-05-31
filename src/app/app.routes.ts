@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import LayoutComponent from './shared/components/layout/layout.component';
 import { isAuthenticatedGuard, isNotAuthenticatedGuard } from './auth/guards';
 import { publicGuard } from './auth/guards/public.guard';
+import { RegisterComponent } from './auth/pages/register/register.component';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,11 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
 
+  {
+    path: 'public/register',
+    canActivate: [publicGuard], // Aplica el guard
+    component: RegisterComponent, // Sin layout
+  },
   {
     path: 'public',
     component: LayoutComponent,

@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
   private loading = inject(NgxSpinnerService);
   private authService = inject(AuthService);
   private router = inject(Router);
+  public cartCount: number = 0;
 
   public username: string = '';
   public role: string = '';
@@ -41,6 +42,11 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
     this.username = this.authService.getUsernameLS();
     // Get role from local storage
     this.role = this.authService.getRolFromLocalStorage();
+
+    // Suscribirse a los cambios del carrito
+    this.sharedService.cartItemCount$.subscribe((count) => {
+      this.cartCount = count;
+    });
   }
 
   ngAfterViewChecked(): void {
@@ -117,5 +123,8 @@ export class HeaderComponent implements OnInit, AfterViewChecked {
         localStorage.setItem('color-theme', 'dark');
       }
     }
+  }
+  clicCart(): void {
+    this.router.navigate(['/admin/cart']);
   }
 }

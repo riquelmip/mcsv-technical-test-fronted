@@ -1,0 +1,32 @@
+<div
+  class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+>
+  <div class="flex justify-between items-center mb-4">
+    <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+      Productos
+    </h5>
+    <select
+      class="block w-48 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+      [(ngModel)]="selectedSortOption"
+      (change)="sortProducts()"
+    >
+      <option value="">Ordenar por</option>
+      <option value="price-asc">Precio: Menor a Mayor</option>
+      <option value="price-desc">Precio: Mayor a Menor</option>
+      <option value="title-asc">Nombre: A-Z</option>
+      <option value="title-desc">Nombre: Z-A</option>
+    </select>
+  </div>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="mx-auto" style="max-width: 1440px">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      >
+        <app-product-card
+          *ngFor="let product of products"
+          [product]="product"
+        ></app-product-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,6 +24,12 @@ import {
 } from '../../interfaces/customer.interfaces';
 import { AddressPayload } from '../../interfaces/address.interface';
 import { CommonModule } from '@angular/common';
+import { OrderService } from '../../services/order.service';
+import {
+  GetOrdersByCustomerResponse,
+  GetOrdersByCustomerResponseDaum,
+  GetOrdersByCustomerResponseOrderDetail,
+} from '../../interfaces/getOrders.interface';
 
 @Component({
   selector: 'app-customer',
@@ -36,6 +42,7 @@ export class CustomerComponent {
   private readonly baseUrl: string = environment.baseUrl;
   private userService = inject(UserService);
   private customerService = inject(CustomerService);
+  private orderService = inject(OrderService);
   private sharedService = inject(SharedService);
   private loading = inject(NgxSpinnerService);
   private fb = inject(FormBuilder);
@@ -43,7 +50,8 @@ export class CustomerComponent {
   private readonly lastRouteKey: string = environment.last_route;
   addressForm: FormGroup = this.fb.group({});
   userInfo: GetUserResponseData | null = null;
-  customerInfo: GetCustomerByUserIdResponseData | any = null; // Adjust type as needed
+  customerInfo: GetCustomerByUserIdResponseData | any = null;
+  ordersByCustomer: GetOrdersByCustomerResponseDaum[] = [];
 
   ngOnInit(): void {
     this.addressForm = this.fb.group({
@@ -104,6 +112,12 @@ export class CustomerComponent {
     });
   }
 
+  getOrderTotal(
+    orderDetails: GetOrdersByCustomerResponseOrderDetail[]
+  ): number {
+    return orderDetails.reduce((total, item) => total + item.subtotal, 0);
+  }
+
   getUser(username: string): void {
     this.loading.show();
     this.userService.getUser(username).subscribe({
@@ -134,6 +148,25 @@ export class CustomerComponent {
         }
         console.log('response customer', response);
         this.customerInfo = response.data;
+        this.getOrdersByCustomerId(this.customerInfo.id);
+        this.loading.hide();
+      },
+      error: (message: any) => {
+        this.sharedService.errorAlert(message);
+      },
+    });
+  }
+
+  getOrdersByCustomerId(customerId: number): void {
+    this.loading.show();
+    this.orderService.getOrdersByCustomerId(customerId).subscribe({
+      next: (response: GetOrdersByCustomerResponse) => {
+        if (!response.isSuccess) {
+          this.sharedService.errorAlert(response.message);
+          return;
+        }
+        this.ordersByCustomer = response.data;
+        console.log('ordersByCustomer', this.ordersByCustomer);
         this.loading.hide();
       },
       error: (message: any) => {

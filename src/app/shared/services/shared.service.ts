@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
+  private cartItemCount = new BehaviorSubject<number>(0);
+  cartItemCount$ = this.cartItemCount.asObservable();
   constructor() {}
 
   errorAlert(message: any) {
@@ -18,6 +21,10 @@ export class SharedService {
       icon: 'error',
       confirmButtonColor: '#0085db',
     });
+  }
+
+  updateCartCount(count: number) {
+    this.cartItemCount.next(count);
   }
 
   successAlert(message: any) {
@@ -84,5 +91,11 @@ export class SharedService {
     if (closeBtn) {
       (closeBtn as HTMLElement).click();
     }
+  }
+
+  getUsernameFromLocalStorage(): string {
+    const username = localStorage.getItem('username') || '';
+    console.log('username', username);
+    return username;
   }
 }

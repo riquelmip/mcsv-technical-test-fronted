@@ -8,16 +8,25 @@ export interface GetUserResponse {
 export interface GetUserResponseData {
   userId: number;
   username: string;
-  password: null;
+  password: string;
+  provider: string;
+  name: any;
+  email: any;
   accountNonExpired: boolean;
   accountNonLocked: boolean;
   credentialsNonExpired: boolean;
   roles: Role[];
+  oauth2: boolean;
   enable: boolean;
 }
 
 export interface Role {
   roleId: number;
   roleName: string;
-  rolePermissions: any[];
+  rolePermissions: RolePermission[];
+}
+
+export interface RolePermission {
+  permissionId: number;
+  permissionName: string;
 }

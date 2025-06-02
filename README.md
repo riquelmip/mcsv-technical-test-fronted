@@ -1,27 +1,55 @@
-# QuizzesGameFrontend
+# MCSV Technical Test Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.10.
+¡Bienvenido! Este proyecto es una aplicación frontend desarrollada como parte de una prueba técnica.
 
-## Development server
+## 🚀 Cómo clonar y ejecutar el proyecto localmente
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Sigue estos pasos para tener el proyecto funcionando en tu máquina:
 
-## Code scaffolding
+### 1. Clona el repositorio
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+git clone https://github.com/riquelmip/mcsv-technical-test-fronted.git
+cd mcsv-technical-test-fronted
+```
 
-## Build
+### 2. Instala las dependencias
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Asegúrate de tener [Node.js](https://nodejs.org/) y [Angular CLI](https://angular.io/cli) instalados.  
+Este proyecto utiliza **Angular 17**.
 
-## Running unit tests
+```bash
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 3. Inicia la aplicación
 
-## Running end-to-end tests
+Puedes iniciar la aplicación con cualquiera de los siguientes comandos:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+npm start
+# o
+ng serve
+```
 
-## Further help
+La aplicación estará disponible en: [http://localhost:4200/](http://localhost:4200/)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+---
+
+## 📦 Estructura del proyecto
+
+- `src/app/` - Código fuente principal de la aplicación.
+- `src/assets/` - Recursos estáticos (imágenes, estilos, etc).
+- `src/environments/` - Configuración de entornos.
+
+## 🛠️ Tecnologías utilizadas
+
+- [Angular 17](https://angular.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Flowbite](https://flowbite.com/)
+- [Font Awesome](https://fontawesome.com/)
+
+## 📄 Licencia
+
+Este proyecto es solo para fines educativos y de prueba técnica.
